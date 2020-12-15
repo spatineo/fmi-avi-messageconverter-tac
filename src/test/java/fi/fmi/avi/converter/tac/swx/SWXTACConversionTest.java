@@ -92,8 +92,7 @@ public class SWXTACConversionTest {
         final ConversionResult<String> SerializeResult = this.converter.convertMessage(msg, TACConverter.SWX_POJO_TO_TAC, hints);
         Assert.assertTrue(SerializeResult.getConvertedMessage().isPresent());
 
-        final ConversionResult<SpaceWeatherAdvisory> reparseResult = this.converter.convertMessage(SerializeResult.getConvertedMessage().get(),
-                TACConverter.TAC_TO_SWX_POJO);
+        this.converter.convertMessage(SerializeResult.getConvertedMessage().get(), TACConverter.TAC_TO_SWX_POJO);
 
         final SpaceWeatherAdvisory adv1 = parseResult.getConvertedMessage().get();
         final SpaceWeatherAdvisory adv2 = parseResult.getConvertedMessage().get();
@@ -137,17 +136,10 @@ public class SWXTACConversionTest {
     }
 
     private String getInput(final String fileName) throws IOException {
-        InputStream is = null;
-        try {
-            is = SWXReconstructorTest.class.getResourceAsStream(fileName);
+        try (InputStream is = SWXReconstructorTest.class.getResourceAsStream(fileName)) {
             Objects.requireNonNull(is);
             return IOUtils.toString(is, "UTF-8");
-        } finally {
-            if (is != null) {
-                is.close();
-            }
         }
     }
 
 }
-

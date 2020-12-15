@@ -94,6 +94,7 @@ import fi.fmi.avi.converter.tac.lexer.impl.token.USSigmetValidUntil;
 import fi.fmi.avi.converter.tac.lexer.impl.token.ValidTime;
 import fi.fmi.avi.converter.tac.lexer.impl.token.VariableSurfaceWind;
 import fi.fmi.avi.converter.tac.lexer.impl.token.VolcanicAshAdvisoryStart;
+import fi.fmi.avi.converter.tac.lexer.impl.token.VolcanicAshPhenomena;
 import fi.fmi.avi.converter.tac.lexer.impl.token.WXREPStart;
 import fi.fmi.avi.converter.tac.lexer.impl.token.WXWarningStart;
 import fi.fmi.avi.converter.tac.lexer.impl.token.Weather;
@@ -427,7 +428,7 @@ public class Lexing {
         retval.add(new Predicate<String>() {
             @Override
             public boolean test(final String s) {
-                return s.matches("^(W|E)\\d{3,5}$");
+                return s.matches("^(W|E)\\d{1,5}$");
             }
         });
         retval.add(new Predicate<String>() {
@@ -439,7 +440,7 @@ public class Lexing {
         retval.add(new Predicate<String>() {
             @Override
             public boolean test(final String s) {
-                return s.matches("^(W|E)\\d{3,5}$");
+                return s.matches("^(W|E)\\d{1,5}$");
             }
         });
         return retval;
@@ -1193,7 +1194,7 @@ public class Lexing {
         l.teach(new VolcanicAshAdvisoryStart(OccurrenceFrequency.RARE));
         l.teach(new DTGIssueTime(OccurrenceFrequency.RARE));
         l.teach(new DTGIssueTimeLabel(OccurrenceFrequency.RARE));
-        l.teach(new SWXPhenomena(OccurrenceFrequency.AVERAGE));
+        l.teach(new VolcanicAshPhenomena(OccurrenceFrequency.AVERAGE));
         l.teach(new AdvisoryPhenomenaTimeGroup(OccurrenceFrequency.AVERAGE));
         l.teach(new Whitespace(OccurrenceFrequency.FREQUENT));
         return l;
